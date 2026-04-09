@@ -12,6 +12,8 @@ jobs:
   train:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repo
