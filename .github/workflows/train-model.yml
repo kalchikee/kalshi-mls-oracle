@@ -55,6 +55,12 @@ jobs:
           path: data/matches_cache.json
           key: mls-matches-cache-v1
 
+      - name: Send sample Discord alerts
+        run: python python/send_sample_alerts.py
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          PYTHONUNBUFFERED: '1'
+
       - name: Commit model artifacts
         run: |
           git config user.name  "github-actions[bot]"
