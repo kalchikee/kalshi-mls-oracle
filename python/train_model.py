@@ -309,13 +309,13 @@ class TeamStats:
             self.last_match_date[team] = match["date"]
 
     def _xpts(self, xg_f: float, xg_a: float) -> float:
-        """Expected points from one match via Poisson."""
-        win = draw = 0.0
-        for h in range(8):
-            for a in range(8):
-                p = poisson.pmf(h, max(xg_f, 0.01)) * poisson.pmf(a, max(xg_a, 0.01))
-                if h > a: win += p
-                elif h == a: draw += p
+        """Expected points from one match via Poisson (vectorized)."""
+        g = np.arange(8)
+        ph = poisson.pmf(g, max(xg_f, 0.01))  # shape (8,)
+        pa = poisson.pmf(g, max(xg_a, 0.01))  # shape (8,)
+        P  = np.outer(ph, pa)                  # shape (8,8), P[h,a]
+        win  = np.tril(P, -1).sum()            # h > a
+        draw = np.trace(P)                     # h == a
         return win * 3 + draw * 1
 
     def rolling_avg(self, vals: list, n: int = 6) -> float:
@@ -705,16 +705,27 @@ def export_artifacts(model, scaler, cv_results: list, seasons: list, n_matches: 
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
+MATCH_CACHE_PATH = "data/matches_cache.json"
+
 def main():
     print("=" * 60)
     print("MLS Oracle v4.1 — Training Pipeline")
     print("=" * 60)
 
-    # Fetch historical matches
-    matches = fetch_all_matches(TRAINING_SEASONS)
-
-    if not matches:
-        raise RuntimeError("No matches fetched — check ESPN API connectivity")
+    # Load from cache if available (avoids re-fetching ESPN on retries)
+    if os.path.exists(MATCH_CACHE_PATH):
+        print(f"Loading matches from cache ({MATCH_CACHE_PATH})...")
+        with open(MATCH_CACHE_PATH) as f:
+            matches = json.load(f)
+        print(f"  {len(matches)} matches loaded from cache")
+    else:
+        matches = fetch_all_matches(TRAINING_SEASONS)
+        if not matches:
+            raise RuntimeError("No matches fetched — check ESPN API connectivity")
+        os.makedirs("data", exist_ok=True)
+        with open(MATCH_CACHE_PATH, "w") as f:
+            json.dump(matches, f)
+        print(f"Matches cached to {MATCH_CACHE_PATH}")
 
     # Group by season
     matches_by_season: dict = defaultdict(list)

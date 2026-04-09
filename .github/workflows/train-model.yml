@@ -27,7 +27,13 @@ jobs:
       - name: Install dependencies
         run: pip install -r python/requirements.txt
 
-      - name: Create data/model directory
+      - name: Restore match cache
+        uses: actions/cache@v4
+        with:
+          path: data/matches_cache.json
+          key: mls-matches-cache-v1
+
+      - name: Create data directories
         run: mkdir -p data/model
 
       - name: Train model
@@ -39,6 +45,13 @@ jobs:
         run: python python/backtest.py
         env:
           PYTHONUNBUFFERED: '1'
+
+      - name: Save match cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data/matches_cache.json
+          key: mls-matches-cache-v1
 
       - name: Commit model artifacts
         run: |
