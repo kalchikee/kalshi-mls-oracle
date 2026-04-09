@@ -97,72 +97,53 @@ def espn_get(url: str, params: dict = None, retries: int = 3) -> dict:
             time.sleep(2 ** attempt)
     return {}
 
-def fetch_team_ids() -> dict:
-    """Returns {abbr: espn_team_id}"""
-    data = espn_get(f"{ESPN_BASE}/teams", params={"limit": 50})
-    mapping = {}
-    for t in data.get("sports", [{}])[0].get("leagues", [{}])[0].get("teams", []):
-        team = t.get("team", {})
-        abbr = team.get("abbreviation", "")
-        tid  = team.get("id", "")
-        if abbr and tid:
-            mapping[abbr] = str(tid)
-    return mapping
-
-def fetch_season_schedule(team_id: str, season: int) -> list:
-    """Returns list of completed match events for a team in a season."""
-    url = f"{ESPN_BASE}/teams/{team_id}/schedule"
-    data = espn_get(url, params={"season": season})
-    events = []
-    for ev in data.get("events", []):
-        status = ev.get("status", {}).get("type", {}).get("completed", False)
-        if not status:
-            continue
-        events.append(ev)
-    return events
-
-def parse_match(event: dict, home_abbr: str) -> Optional[dict]:
-    """Parse an ESPN event dict into a structured match record."""
+def parse_scoreboard_event(event: dict) -> Optional[dict]:
+    """Parse a scoreboard event (from /scoreboard endpoint) into a match record."""
     try:
-        comp  = event["competitions"][0]
-        date  = event["date"][:10]  # YYYY-MM-DD
+        comp = event["competitions"][0]
+
+        # Only completed matches
+        status = comp.get("status", {}).get("type", {})
+        if not status.get("completed", False):
+            return None
+
         competitors = comp["competitors"]
         home_comp = next((c for c in competitors if c["homeAway"] == "home"), None)
         away_comp = next((c for c in competitors if c["homeAway"] == "away"), None)
         if not home_comp or not away_comp:
             return None
 
-        home_score = int(home_comp.get("score", 0))
-        away_score = int(away_comp.get("score", 0))
+        home_score = int(home_comp.get("score", 0) or 0)
+        away_score = int(away_comp.get("score", 0) or 0)
+        home_team  = home_comp.get("team", {}).get("abbreviation", "")
+        away_team  = away_comp.get("team", {}).get("abbreviation", "")
 
-        # Team abbreviations from ESPN
-        home_team = home_comp.get("team", {}).get("abbreviation", "")
-        away_team = away_comp.get("team", {}).get("abbreviation", "")
+        if not home_team or not away_team:
+            return None
 
-        # Extract stats if available
-        def get_stat(comp_data: dict, name: str, default=0.0) -> float:
+        # Date from event (UTC ISO → YYYY-MM-DD)
+        date = event.get("date", "")[:10]
+
+        def get_stat(comp_data: dict, name: str) -> float:
             for s in comp_data.get("statistics", []):
-                if s.get("name", "").lower() == name.lower():
+                if s.get("name", "") == name:
                     try:
-                        return float(s["displayValue"].replace("%", ""))
-                    except (ValueError, KeyError):
+                        return float(str(s.get("displayValue", "0")).replace("%", ""))
+                    except (ValueError, TypeError):
                         pass
-            return default
+            return 0.0
 
-        home_shots_ot = get_stat(home_comp, "shotsOnTarget")
-        away_shots_ot = get_stat(away_comp, "shotsOnTarget")
-        home_shots    = get_stat(home_comp, "shots")
-        away_shots    = get_stat(away_comp, "shots")
-        home_poss     = get_stat(home_comp, "possessionPct")
-        away_poss     = get_stat(away_comp, "possessionPct")
-        home_pass_pct = get_stat(home_comp, "passingAccuracy")
-        away_pass_pct = get_stat(away_comp, "passingAccuracy")
+        home_sot  = get_stat(home_comp, "shotsOnTarget")
+        away_sot  = get_stat(away_comp, "shotsOnTarget")
+        home_tot  = get_stat(home_comp, "totalShots")
+        away_tot  = get_stat(away_comp, "totalShots")
+        home_poss = get_stat(home_comp, "possessionPct")
+        away_poss = get_stat(away_comp, "possessionPct")
 
-        # xG proxy: SOT * 0.30 + (shots - SOT) * 0.05
-        home_xg = home_shots_ot * 0.30 + max(0, home_shots - home_shots_ot) * 0.05
-        away_xg = away_shots_ot * 0.30 + max(0, away_shots - away_shots_ot) * 0.05
+        # xG proxy: SOT * 0.30 + (total - SOT) * 0.05
+        home_xg = home_sot * 0.30 + max(0, home_tot - home_sot) * 0.05
+        away_xg = away_sot * 0.30 + max(0, away_tot - away_sot) * 0.05
 
-        # Outcome from home perspective
         if home_score > away_score:
             outcome = "H"
         elif home_score < away_score:
@@ -180,40 +161,66 @@ def parse_match(event: dict, home_abbr: str) -> Optional[dict]:
             "away_xg": away_xg,
             "home_poss": home_poss,
             "away_poss": away_poss,
-            "home_pass_pct": home_pass_pct,
-            "away_pass_pct": away_pass_pct,
+            "home_pass_pct": 0.0,  # not available in scoreboard stats
+            "away_pass_pct": 0.0,
             "outcome": outcome,
             "event_id": event.get("id", ""),
         }
     except Exception:
         return None
 
+def fetch_scoreboard_date(date: datetime) -> list:
+    """Fetch all MLS matches from the scoreboard on a given date."""
+    date_str = date.strftime("%Y%m%d")
+    url = f"{ESPN_BASE}/scoreboard"
+    data = espn_get(url, params={"dates": date_str})
+    results = []
+    for ev in data.get("events", []):
+        parsed = parse_scoreboard_event(ev)
+        if parsed:
+            results.append(parsed)
+    return results
+
 # ---------------------------------------------------------------------------
-# Data fetching — all seasons
+# Data fetching — all seasons via scoreboard
 # ---------------------------------------------------------------------------
 def fetch_all_matches(seasons: list) -> list:
-    print("Fetching team IDs from ESPN...")
-    team_ids = fetch_team_ids()
-    print(f"  Found {len(team_ids)} teams")
-
-    all_matches: dict = {}  # event_id -> match dict (deduplicate)
+    """
+    Fetch MLS matches by iterating through each day of each season's date range
+    using the /scoreboard endpoint (the team schedule endpoint returns 0 events
+    for historical seasons — scoreboard is the correct endpoint for historical data).
+    """
+    all_matches: dict = {}  # event_id -> match (deduplicated)
 
     for season in seasons:
-        print(f"\nFetching season {season}...")
-        seen_teams = 0
-        for abbr, tid in team_ids.items():
-            try:
-                events = fetch_season_schedule(tid, season)
-                for ev in events:
-                    parsed = parse_match(ev, abbr)
-                    if parsed and parsed["event_id"] not in all_matches:
-                        parsed["season"] = season
-                        all_matches[parsed["event_id"]] = parsed
-                seen_teams += 1
-                time.sleep(0.1)  # polite rate limiting
-            except Exception as e:
-                print(f"  Warning: failed for {abbr} season {season}: {e}")
-        print(f"  Processed {seen_teams} teams, {sum(1 for m in all_matches.values() if m['season'] == season)} unique matches so far")
+        # MLS season runs late Feb through early Dec
+        season_start = datetime(season, 2, 15)
+        season_end   = datetime(season, 12, 10)
+
+        print(f"\nFetching season {season} ({season_start.date()} → {season_end.date()})...")
+        current = season_start
+        match_days = 0
+        season_count = 0
+
+        while current <= season_end:
+            # Only fetch on likely match days: Fri/Sat/Sun + Tue/Wed (saves ~42% of requests)
+            weekday = current.weekday()  # 0=Mon, 4=Fri, 5=Sat, 6=Sun
+            if weekday in (1, 2, 4, 5, 6):  # Tue, Wed, Fri, Sat, Sun
+                try:
+                    matches = fetch_scoreboard_date(current)
+                    if matches:
+                        match_days += 1
+                        for m in matches:
+                            if m["event_id"] not in all_matches:
+                                m["season"] = season
+                                all_matches[m["event_id"]] = m
+                                season_count += 1
+                    time.sleep(0.05)
+                except Exception as e:
+                    print(f"  Warning: {current.date()} failed: {e}")
+            current += timedelta(days=1)
+
+        print(f"  {season_count} matches found across {match_days} match days")
 
     matches = sorted(all_matches.values(), key=lambda m: m["date"])
     print(f"\nTotal unique matches: {len(matches)}")
