@@ -1,0 +1,55 @@
+name: Evening Recap
+
+on:
+  schedule:
+    # Midnight ET daily (4:00 AM UTC) — recaps yesterday's completed matches
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Date to recap (YYYY-MM-DD). Leave blank for yesterday.'
+        required: false
+        default: ''
+
+jobs:
+  evening-recap:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Restore database
+        uses: actions/cache@v4
+        with:
+          path: data/mls_oracle.db
+          key: mls-oracle-db-${{ github.run_id }}
+          restore-keys: |
+            mls-oracle-db-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run evening recap
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            node --loader ts-node/esm src/index.ts --alert recap --date "${{ github.event.inputs.date }}"
+          else
+            npm run alerts:recap
+          fi
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          LOG_LEVEL: info
+
+      - name: Save database
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data/mls_oracle.db
+          key: mls-oracle-db-${{ github.run_id }}

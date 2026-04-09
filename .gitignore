@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment — NEVER commit secrets
+.env
+.env.local
+.env.*.local
+
+# Runtime data (persisted via GitHub Actions cache)
+data/mls_oracle.db
+
+# Cache & logs
+cache/
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# TypeScript incremental build
+*.tsbuildinfo
+
+# Committed to repo (needed for runtime):
+# data/model/coefficients.json
+# data/model/scaler.json
+# data/model/calibration.json
+# data/model/metadata.json
+# data/training_data.csv  (optional — only needed for retraining)

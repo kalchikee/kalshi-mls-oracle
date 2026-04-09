@@ -1,0 +1,56 @@
+name: Matchday Predictions
+
+on:
+  schedule:
+    # 10 AM ET daily (14:00 UTC — adjusts for EDT/EST automatically via TZ in code)
+    - cron: '0 14 * * *'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Date for predictions (YYYY-MM-DD). Leave blank for today.'
+        required: false
+        default: ''
+
+jobs:
+  matchday-predictions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Restore database
+        uses: actions/cache@v4
+        with:
+          path: data/mls_oracle.db
+          key: mls-oracle-db-${{ github.run_id }}
+          restore-keys: |
+            mls-oracle-db-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run matchday predictions and send Discord alert
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            node --loader ts-node/esm src/index.ts --alert morning --date "${{ github.event.inputs.date }}"
+          else
+            npm run alerts:morning
+          fi
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          LOG_LEVEL: info
+
+      - name: Save database
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data/mls_oracle.db
+          key: mls-oracle-db-${{ github.run_id }}
