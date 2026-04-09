@@ -548,7 +548,7 @@ def walk_forward_cv(matches_by_season: dict, seasons: list) -> list:
         X_tr_scaled = scaler.fit_transform(X_train)
         X_te_scaled = scaler.transform(X_test)
 
-        model = LogisticRegression(multi_class="multinomial", C=0.8, solver="lbfgs",
+        model = LogisticRegression(C=0.8, solver="lbfgs",
                                    max_iter=500, random_state=42)
         model.fit(X_tr_scaled, y_train)
 
@@ -631,7 +631,7 @@ def train_final_model(matches_by_season: dict, seasons: list):
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
 
-    model = LogisticRegression(multi_class="multinomial", C=0.8, solver="lbfgs",
+    model = LogisticRegression(C=0.8, solver="lbfgs",
                                max_iter=1000, random_state=42)
     model.fit(X_scaled, y)
     print(f"  Classes: {model.classes_}")
