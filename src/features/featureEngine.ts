@@ -112,8 +112,17 @@ export async function computeFeatures(
   const drawTendencyDiff = home.drawRate - away.drawRate;
 
   // ── Home advantage (season home vs away split) ────────────────────────────────
-  // Proxy: MLS home advantage is real, especially with travel
-  const homeAdvDiff = 0.35; // consistent ~+0.35 goals home advantage in MLS
+  // Dynamic: use per-team home/away goal splits when available.
+  // homeTeamHomeLift = how much MORE the home team scores at home vs their season average
+  // awayTeamRoadDrop = how much LESS the away team scores on the road vs their season average
+  // Fallback to half of MLS league avg home advantage (0.175 each) when data missing.
+  const homeTeamHomeLift = (home.homeGoalsFor != null)
+    ? Math.max(-0.5, Math.min(0.8, home.homeGoalsFor - home.goalsFor))
+    : 0.175;
+  const awayTeamRoadDrop = (away.awayGoalsFor != null)
+    ? Math.max(-0.5, Math.min(0.8, away.goalsFor - away.awayGoalsFor))
+    : 0.175;
+  const homeAdvDiff = Math.max(0.05, homeTeamHomeLift + awayTeamRoadDrop);
 
   // ── Venue environment ─────────────────────────────────────────────────────────
   const altFlag    = isHighAltitude(homeAbbr) ? 1 : 0;
