@@ -99,7 +99,13 @@ export async function computeFeatures(
   const passAccDiff    = home.passAccuracy - away.passAccuracy;
 
   // ── Form ──────────────────────────────────────────────────────────────────────
-  const form5Diff         = home.form5xPts - away.form5xPts;
+  // Anti-recency bias: blend 55% season baseline (xPts) + 45% recent form (form5xPts)
+  // Prevents hot/cold streaks from overly swinging win probabilities
+  const BASELINE_W = 0.55;
+  const RECENT_W   = 0.45;
+  const homeBlendedForm = BASELINE_W * home.xPts + RECENT_W * home.form5xPts;
+  const awayBlendedForm = BASELINE_W * away.xPts + RECENT_W * away.form5xPts;
+  const form5Diff         = homeBlendedForm - awayBlendedForm;
   const overperformDiff   = home.overperformance - away.overperformance;
 
   // ── Draw tendency ─────────────────────────────────────────────────────────────
