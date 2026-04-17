@@ -108,22 +108,26 @@ export function applyOffseasonRegression(): void {
 // ─── Elo-based 3-way probabilities (rough approximation) ─────────────────────
 // Convert binary Elo win probability into H/D/A using draw-rate adjustment.
 // MLS draws ~25-28% of matches.
+// When team-specific draw rates are available, uses matchup draw rate clamped to [0.15, 0.40].
 
 export function eloThreeWayProbs(
   homeAbbr: string,
   awayAbbr: string,
-  leagueDrawRate = 0.27
+  homeDrawRate?: number,
+  awayDrawRate?: number,
 ): { home: number; draw: number; away: number } {
   const homeWinProb = eloWinProb(getElo(homeAbbr), getElo(awayAbbr));
 
-  // Allocate draws proportionally from both win probabilities
-  const drawShare = leagueDrawRate;
-  const remainingHome = 1 - drawShare;
+  // Team-specific draw rate when available; otherwise fall back to MLS league average
+  const matchupDrawRate = (homeDrawRate != null && awayDrawRate != null)
+    ? Math.max(0.15, Math.min(0.40, (homeDrawRate + awayDrawRate) / 2))
+    : 0.27;
 
-  // Map Elo win prob to H/A split within non-draw outcomes
+  const remainingHome = 1 - matchupDrawRate;
+
   const home = homeWinProb * remainingHome;
   const away = (1 - homeWinProb) * remainingHome;
-  const draw = drawShare;
+  const draw = matchupDrawRate;
 
   return { home, draw, away };
 }

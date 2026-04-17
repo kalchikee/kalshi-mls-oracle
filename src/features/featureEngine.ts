@@ -99,15 +99,30 @@ export async function computeFeatures(
   const passAccDiff    = home.passAccuracy - away.passAccuracy;
 
   // ── Form ──────────────────────────────────────────────────────────────────────
-  const form5Diff         = home.form5xPts - away.form5xPts;
+  // Anti-recency bias: blend 55% season baseline (xPts) + 45% recent form (form5xPts)
+  // Prevents hot/cold streaks from overly swinging win probabilities
+  const BASELINE_W = 0.55;
+  const RECENT_W   = 0.45;
+  const homeBlendedForm = BASELINE_W * home.xPts + RECENT_W * home.form5xPts;
+  const awayBlendedForm = BASELINE_W * away.xPts + RECENT_W * away.form5xPts;
+  const form5Diff         = homeBlendedForm - awayBlendedForm;
   const overperformDiff   = home.overperformance - away.overperformance;
 
   // ── Draw tendency ─────────────────────────────────────────────────────────────
   const drawTendencyDiff = home.drawRate - away.drawRate;
 
   // ── Home advantage (season home vs away split) ────────────────────────────────
-  // Proxy: MLS home advantage is real, especially with travel
-  const homeAdvDiff = 0.35; // consistent ~+0.35 goals home advantage in MLS
+  // Dynamic: use per-team home/away goal splits when available.
+  // homeTeamHomeLift = how much MORE the home team scores at home vs their season average
+  // awayTeamRoadDrop = how much LESS the away team scores on the road vs their season average
+  // Fallback to half of MLS league avg home advantage (0.175 each) when data missing.
+  const homeTeamHomeLift = (home.homeGoalsFor != null)
+    ? Math.max(-0.5, Math.min(0.8, home.homeGoalsFor - home.goalsFor))
+    : 0.175;
+  const awayTeamRoadDrop = (away.awayGoalsFor != null)
+    ? Math.max(-0.5, Math.min(0.8, away.goalsFor - away.awayGoalsFor))
+    : 0.175;
+  const homeAdvDiff = Math.max(0.05, homeTeamHomeLift + awayTeamRoadDrop);
 
   // ── Venue environment ─────────────────────────────────────────────────────────
   const altFlag    = isHighAltitude(homeAbbr) ? 1 : 0;
