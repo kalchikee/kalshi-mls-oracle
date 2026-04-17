@@ -1,55 +1,40 @@
 {
-  "version": "4.1.0",
-  "trained_at": "2026-04-09T20:40:46.468245Z",
+  "version": "4.2.0",
+  "trained_at": "2026-04-17T21:43:52.519547Z",
   "training_seasons": [
     2019,
     2020,
     2021,
     2022,
     2023,
-    2024
+    2024,
+    2025
   ],
-  "n_matches": 2686,
+  "n_matches": 2913,
   "model_type": "MultinomialLogisticRegression",
   "regularization_C": 0.8,
   "solver": "lbfgs",
   "feature_names": [
     "elo_diff",
+    "ppg_diff",
+    "goals_for_diff",
+    "goals_against_diff",
+    "form_5g_diff",
+    "rest_days_diff",
+    "home_advantage_diff",
     "xg_for_diff",
     "xg_against_diff",
-    "xg_diff",
-    "xpts_diff",
-    "ppg_diff",
     "possession_diff",
-    "pass_pct_diff",
-    "form_5g_xpts_diff",
-    "overperformance_diff",
     "draw_tendency_diff",
-    "is_home",
-    "home_advantage_diff",
-    "altitude_flag",
-    "altitude_penalty",
-    "turf_flag",
-    "travel_distance_diff",
-    "cross_country_flag",
-    "rest_days_diff",
+    "travel_distance",
     "midweek_flag",
-    "cup_congestion",
-    "dp_impact_diff",
-    "dp_available_diff",
-    "roster_salary_diff",
-    "conference_diff",
-    "expansion_flag",
-    "playoff_position_diff",
-    "manager_tenure_diff",
-    "vegas_home_prob",
-    "vegas_draw_prob",
-    "vegas_away_prob",
+    "altitude_flag",
+    "is_home",
     "poisson_home",
     "poisson_draw",
     "poisson_away"
   ],
-  "n_features": 34,
+  "n_features": 18,
   "walk_forward_cv": [
     {
       "fold": 1,
@@ -59,9 +44,9 @@
       "test_season": 2020,
       "n_train": 373,
       "n_test": 254,
-      "accuracy": 0.5,
-      "log_loss": 1.0995,
-      "brier_score": 0.637
+      "accuracy": 0.4882,
+      "log_loss": 1.1156,
+      "brier_score": 0.6452
     },
     {
       "fold": 2,
@@ -72,9 +57,9 @@
       "test_season": 2021,
       "n_train": 627,
       "n_test": 421,
-      "accuracy": 0.4632,
-      "log_loss": 1.0771,
-      "brier_score": 0.6457
+      "accuracy": 0.4846,
+      "log_loss": 1.0714,
+      "brier_score": 0.6416
     },
     {
       "fold": 3,
@@ -86,9 +71,9 @@
       "test_season": 2022,
       "n_train": 1048,
       "n_test": 437,
-      "accuracy": 0.4805,
-      "log_loss": 1.0509,
-      "brier_score": 0.6308
+      "accuracy": 0.4577,
+      "log_loss": 1.053,
+      "brier_score": 0.6334
     },
     {
       "fold": 4,
@@ -101,9 +86,9 @@
       "test_season": 2023,
       "n_train": 1485,
       "n_test": 469,
-      "accuracy": 0.4627,
-      "log_loss": 1.0596,
-      "brier_score": 0.6378
+      "accuracy": 0.4584,
+      "log_loss": 1.0577,
+      "brier_score": 0.6357
     },
     {
       "fold": 5,
@@ -117,12 +102,29 @@
       "test_season": 2024,
       "n_train": 1954,
       "n_test": 470,
-      "accuracy": 0.4681,
-      "log_loss": 1.0545,
-      "brier_score": 0.6339
+      "accuracy": 0.4702,
+      "log_loss": 1.0468,
+      "brier_score": 0.6285
+    },
+    {
+      "fold": 6,
+      "train_seasons": [
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "test_season": 2025,
+      "n_train": 2424,
+      "n_test": 489,
+      "accuracy": 0.4581,
+      "log_loss": 1.0523,
+      "brier_score": 0.6325
     }
   ],
-  "avg_cv_accuracy": 0.4749,
-  "avg_cv_log_loss": 1.0683,
-  "avg_cv_brier": 0.637
+  "avg_cv_accuracy": 0.4695,
+  "avg_cv_log_loss": 1.0661,
+  "avg_cv_brier": 0.6361
 }

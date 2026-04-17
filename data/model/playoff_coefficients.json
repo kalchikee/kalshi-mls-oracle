@@ -1,0 +1,9 @@
+{
+  "intercept": 0.16257824166487678,
+  "coefficients": [
+    0.2611594542439364
+  ],
+  "feature_names": [
+    "elo_diff"
+  ]
+}
