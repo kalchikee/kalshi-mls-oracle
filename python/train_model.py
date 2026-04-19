@@ -208,10 +208,13 @@ def export_artifacts(model, scaler, cv_results, seasons, n_matches):
     with open("data/model/coefficients.json", "w") as f:
         json.dump(coef_json, f, indent=2)
 
-    # scaler.json
+    # scaler.json — key MUST be 'scale' (sklearn convention); TypeScript
+    # inference reads scaler.scale. Previous 'std' key left the inference
+    # pipeline with an empty Float64Array, so z-scores were never computed
+    # and all features were silently dropped.
     scaler_json = {
         "mean": scaler.mean_.tolist(),
-        "std":  scaler.scale_.tolist(),
+        "scale": scaler.scale_.tolist(),
         "feature_names": FEATURE_NAMES,
     }
     with open("data/model/scaler.json", "w") as f:
