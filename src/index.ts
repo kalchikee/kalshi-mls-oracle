@@ -117,8 +117,18 @@ TARGET ACCURACY:
 
 async function runMorningAlert(date: string): Promise<void> {
   const { sendMorningBriefing } = await import('./alerts/discord.js');
+  const { writePredictionsFile } = await import('./kalshi/predictionsFile.js');
   await initDb();
   const predictions = await runPipeline({ date, verbose: false });
+
+  // Write predictions JSON for kalshi-safety to consume.
+  try {
+    const path = writePredictionsFile(date, predictions);
+    logger.info({ path, picks: predictions.length }, 'Wrote predictions JSON');
+  } catch (err) {
+    logger.warn({ err }, 'Failed to write predictions JSON (non-fatal)');
+  }
+
   await sendMorningBriefing(date);
 
   if (predictions.length === 0) {

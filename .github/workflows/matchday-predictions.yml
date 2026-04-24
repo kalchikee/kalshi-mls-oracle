@@ -14,10 +14,16 @@ on:
 jobs:
   matchday-predictions:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to commit predictions/<date>.json
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+
+      - name: Get today's date (ET)
+        id: date
+        run: echo "date=$(TZ='America/New_York' date +%Y-%m-%d)" >> $GITHUB_OUTPUT
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -47,6 +53,19 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           LOG_LEVEL: info
+          KALSHI_MIN_PROB: '0.58'
+
+      - name: Commit predictions JSON
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add predictions/${{ steps.date.outputs.date }}.json || true
+          if ! git diff --staged --quiet; then
+            git commit -m "MLS predictions ${{ steps.date.outputs.date }}"
+            git push
+          else
+            echo "No predictions file to commit"
+          fi
 
       - name: Save database
         if: always()
