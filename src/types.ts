@@ -142,6 +142,17 @@ export interface FeatureVector {
   playoff_position_diff: number;  // distance from playoff line (home - away)
   manager_tenure_diff: number;    // manager months at club (home - away)
 
+  // Goals-based features (v4.2)
+  goals_for_diff: number;         // goals scored per game (home - away)
+  goals_against_diff: number;     // goals conceded per game (home - away)
+  form_5g_diff: number;           // 5-game form normalized 0-1 (home - away)
+  travel_distance: number;        // away team travel distance (normalized /3000)
+
+  // Poisson priors (injected by metaModel at prediction time)
+  poisson_home: number;           // Poisson P(home win)
+  poisson_draw: number;           // Poisson P(draw)
+  poisson_away: number;           // Poisson P(away win)
+
   // Vegas (filled at prediction time if available)
   vegas_home_prob: number;        // vig-removed implied probability (0 if unavailable)
   vegas_draw_prob: number;        // vig-removed draw probability

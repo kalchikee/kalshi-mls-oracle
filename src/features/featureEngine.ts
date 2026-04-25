@@ -161,6 +161,19 @@ export async function computeFeatures(
   // Manager tenure diff
   const managerTenureDiff = home.managerTenure - away.managerTenure;
 
+  // ── Goals-based features (v4.2) ────────────────────────────────────────────
+  const goalsForDiff     = home.goalsFor     - away.goalsFor;
+  const goalsAgainstDiff = home.goalsAgainst - away.goalsAgainst;
+
+  // form_5g_diff: normalized 0-1 form based on PPG (3=W, 1=D, 0=L) / 3
+  // Use winPct as a proxy for recent form normalized to 0-1
+  const homeForm5 = home.form5xPts / 3;  // xPts is already per-game, normalize by max (3)
+  const awayForm5 = away.form5xPts / 3;
+  const form5gDiff = homeForm5 - awayForm5;
+
+  // travel_distance: normalized by /3000
+  const travelDistNorm = awayTravelMiles / 3000;
+
   const features: FeatureVector = {
     elo_diff: eloDiff,
     xg_for_diff: xgForDiff,
@@ -190,6 +203,16 @@ export async function computeFeatures(
     expansion_flag: expansionFlag,
     playoff_position_diff: playoffPosDiff,
     manager_tenure_diff: managerTenureDiff,
+    // v4.2 goals-based features
+    goals_for_diff: goalsForDiff,
+    goals_against_diff: goalsAgainstDiff,
+    form_5g_diff: form5gDiff,
+    travel_distance: travelDistNorm,
+    // Poisson priors (injected by metaModel)
+    poisson_home: 0,
+    poisson_draw: 0,
+    poisson_away: 0,
+    // Vegas
     vegas_home_prob: 0,
     vegas_draw_prob: 0,
     vegas_away_prob: 0,

@@ -16,11 +16,29 @@ const MODEL_DIR = resolve(__dirname, '../../data/model');
 
 // ─── JSON artifact shapes ─────────────────────────────────────────────────────
 
-// Multinomial LR: one coefficient vector per class (H, D, A)
+// Per-class coefficient block. The Python training script writes the new
+// shape (coefficients as an array, intercept as a scalar) plus a top-level
+// `feature_names` array. The TypeScript loader supports BOTH the new and
+// the legacy name-keyed shape so we don't silently drop signal if the
+// training script rolls back to the old format.
+interface ClassBlockNew {
+  coefficients: number[];   // length must match feature_names
+  intercept: number;
+}
+type ClassBlockLegacy = Record<string, number>;  // { feature_name: coeff, ..., _intercept: n }
+type ClassBlock = ClassBlockNew | ClassBlockLegacy;
+
 interface MultiCoefficientsJson {
-  home: Record<string, number>;   // { feature_name: coeff, ..., _intercept: n }
-  draw: Record<string, number>;
-  away: Record<string, number>;
+  home: ClassBlock;
+  draw: ClassBlock;
+  away: ClassBlock;
+  /** Present in the new format — feature ordering for the `coefficients` arrays. */
+  feature_names?: string[];
+}
+
+function isNewBlock(b: ClassBlock): b is ClassBlockNew {
+  return Array.isArray((b as ClassBlockNew).coefficients) &&
+         typeof (b as ClassBlockNew).intercept === 'number';
 }
 
 interface ScalerJson {
@@ -88,29 +106,59 @@ export function loadModel(): boolean {
     const scaler: ScalerJson            = JSON.parse(readFileSync(scalerPath, 'utf-8'));
     const meta: ModelMetadataJson       = JSON.parse(readFileSync(metaPath, 'utf-8'));
 
-    const featureNames = scaler.feature_names;
+    const featureNames = coeffs.feature_names ?? scaler.feature_names;
     const n = featureNames.length;
 
-    const buildCoeffArr = (classCoeffs: Record<string, number>) => {
+    const buildCoeffArr = (block: ClassBlock): Float64Array => {
       const arr = new Float64Array(n);
-      for (let i = 0; i < n; i++) {
-        arr[i] = classCoeffs[featureNames[i]] ?? 0;
+      if (isNewBlock(block)) {
+        // New format: array indexed by featureNames order
+        if (block.coefficients.length !== n) {
+          logger.warn(
+            { coeffs: block.coefficients.length, features: n },
+            'Coefficient array length does not match feature_names — possible model/scaler drift',
+          );
+        }
+        for (let i = 0; i < n; i++) {
+          arr[i] = block.coefficients[i] ?? 0;
+        }
+      } else {
+        // Legacy format: keyed by feature name
+        for (let i = 0; i < n; i++) {
+          arr[i] = block[featureNames[i]] ?? 0;
+        }
       }
       return arr;
     };
+
+    const interceptOf = (block: ClassBlock): number =>
+      isNewBlock(block) ? block.intercept : (block['_intercept'] ?? 0);
 
     _model = {
       featureNames,
       coeffsHome:    buildCoeffArr(coeffs.home),
       coeffsDrawArr: buildCoeffArr(coeffs.draw),
       coeffsAway:    buildCoeffArr(coeffs.away),
-      interceptHome: coeffs.home['_intercept'] ?? 0,
-      interceptDraw: coeffs.draw['_intercept'] ?? 0,
-      interceptAway: coeffs.away['_intercept'] ?? 0,
+      interceptHome: interceptOf(coeffs.home),
+      interceptDraw: interceptOf(coeffs.draw),
+      interceptAway: interceptOf(coeffs.away),
       scalerMean:    new Float64Array(scaler.mean),
       scalerScale:   new Float64Array(scaler.scale),
       metadata:      meta,
     };
+
+    // Sanity check: if every coefficient is zero, the loader silently misread
+    // the file — log loud so we don't ship 33%/33%/33% predictions again.
+    const allZero =
+      _model.coeffsHome.every((v) => v === 0) &&
+      _model.coeffsDrawArr.every((v) => v === 0) &&
+      _model.coeffsAway.every((v) => v === 0);
+    if (allZero) {
+      logger.error(
+        { features: n },
+        'ML model loaded but ALL coefficients are zero — JSON shape likely mismatched. Predictions will be uniform 33/33/33.',
+      );
+    }
 
     logger.info({ version: meta.version, features: n, avgBrier: meta.avg_brier }, 'ML meta-model loaded');
     return true;
