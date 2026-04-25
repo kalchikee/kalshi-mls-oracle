@@ -1,6 +1,26 @@
 {
   "sport": "MLS",
   "date": "2026-04-25",
-  "generatedAt": "2026-04-25T14:23:10.874Z",
-  "picks": []
+  "generatedAt": "2026-04-25T15:09:33.004Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-04-25-RBNY-CIN",
+      "home": "CIN",
+      "away": "RBNY",
+      "pickedTeam": "CIN",
+      "pickedSide": "home",
+      "modelProb": 0.7228038886640952,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761575",
+        "matchweek": 0,
+        "venue": "TQL Stadium",
+        "drawProb": 0.13164849531189038,
+        "expectedScore": "1-1",
+        "over25_prob": 0.41334,
+        "btts_prob": 0.4702,
+        "early_season": true
+      }
+    }
+  ]
 }
