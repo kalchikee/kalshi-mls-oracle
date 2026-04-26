@@ -258,14 +258,8 @@ export async function sendEveningRecap(
   const season = getSeasonRecord();
 
   if (games.length === 0) {
-    return sendWebhook({
-      embeds: [{
-        title: `🌙 MLS Oracle — Recap | ${date}`,
-        description: 'No completed matches found. Results may still be in progress.',
-        color: MLS_GRAY,
-        timestamp: new Date().toISOString(),
-      }],
-    });
+    logger.info({ date }, 'No completed matches to recap — skipping Discord notification');
+    return false;
   }
 
   const gradedGames = games.filter(g => g.prediction.correct !== undefined);
