@@ -1,0 +1,64 @@
+{
+  "sport": "MLS",
+  "date": "2026-05-09",
+  "generatedAt": "2026-05-09T14:30:43.019Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-05-09-RBNY-CHI",
+      "home": "CHI",
+      "away": "RBNY",
+      "pickedTeam": "CHI",
+      "pickedSide": "home",
+      "modelProb": 0.7286233285026739,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761600",
+        "matchweek": 0,
+        "venue": "Soldier Field",
+        "drawProb": 0.12936482062682336,
+        "expectedScore": "1-1",
+        "over25_prob": 0.41316,
+        "btts_prob": 0.47066,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-05-09-STL-COL",
+      "home": "COL",
+      "away": "STL",
+      "pickedTeam": "COL",
+      "pickedSide": "home",
+      "modelProb": 0.6202490612150355,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761606",
+        "matchweek": 0,
+        "venue": "Dick's Sporting Goods Park",
+        "drawProb": 0.19733975920395305,
+        "expectedScore": "1-1",
+        "over25_prob": 0.50854,
+        "btts_prob": 0.54024,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-05-09-SD-SEA",
+      "home": "SEA",
+      "away": "SD",
+      "pickedTeam": "SEA",
+      "pickedSide": "home",
+      "modelProb": 0.710275423496595,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761609",
+        "matchweek": 0,
+        "venue": "Lumen Field",
+        "drawProb": 0.1682515865781236,
+        "expectedScore": "1-1",
+        "over25_prob": 0.53122,
+        "btts_prob": 0.5568,
+        "early_season": true
+      }
+    }
+  ]
+}
