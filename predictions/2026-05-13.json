@@ -1,0 +1,26 @@
+{
+  "sport": "MLS",
+  "date": "2026-05-13",
+  "generatedAt": "2026-05-13T15:09:41.497Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-05-13-HOU-RSL",
+      "home": "RSL",
+      "away": "HOU",
+      "pickedTeam": "RSL",
+      "pickedSide": "home",
+      "modelProb": 0.5881914082520588,
+      "confidenceTier": "strong",
+      "extra": {
+        "gameId": "761628",
+        "matchweek": 0,
+        "venue": "America First Field",
+        "drawProb": 0.21824512042376307,
+        "expectedScore": "1-1",
+        "over25_prob": 0.50014,
+        "btts_prob": 0.53882,
+        "early_season": true
+      }
+    }
+  ]
+}
