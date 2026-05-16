@@ -1,0 +1,26 @@
+{
+  "sport": "MLS",
+  "date": "2026-05-16",
+  "generatedAt": "2026-05-16T14:35:06.497Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-05-16-COL-RSL",
+      "home": "RSL",
+      "away": "COL",
+      "pickedTeam": "RSL",
+      "pickedSide": "home",
+      "modelProb": 0.61630368126116,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761639",
+        "matchweek": 0,
+        "venue": "America First Field",
+        "drawProb": 0.19208396872250957,
+        "expectedScore": "1-1",
+        "over25_prob": 0.50912,
+        "btts_prob": 0.54442,
+        "early_season": true
+      }
+    }
+  ]
+}
