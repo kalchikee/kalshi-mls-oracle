@@ -125,6 +125,17 @@ export async function sendMorningBriefing(date: string): Promise<boolean> {
   // ── Embed 1: All Picks ────────────────────────────────────────────────────
   const picksFields: DiscordField[] = [];
 
+  // Season hit-rate — same source the evening recap uses, so morning + evening
+  // agree on the number. Only shown when the season has graded predictions.
+  if (season.total > 0) {
+    const seasonAcc = season.correct / season.total;
+    picksFields.push({
+      name: '📊 Season Accuracy',
+      value: `**${pct(seasonAcc)}** · ${season.correct}/${season.total} predictions correct this season`,
+      inline: false,
+    });
+  }
+
   for (const pred of sorted) {
     const matchup = `${pred.away_team} @ ${pred.home_team}`;
     const conf    = confidenceEmoji(pred.pick_confidence);
