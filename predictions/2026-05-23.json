@@ -1,0 +1,45 @@
+{
+  "sport": "MLS",
+  "date": "2026-05-23",
+  "generatedAt": "2026-05-23T14:38:47.939Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-05-23-RBNY-KC",
+      "home": "KC",
+      "away": "RBNY",
+      "pickedTeam": "KC",
+      "pickedSide": "home",
+      "modelProb": 0.7247435446253793,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761651",
+        "matchweek": 0,
+        "venue": "Children's Mercy Park",
+        "drawProb": 0.131004853856918,
+        "expectedScore": "1-1",
+        "over25_prob": 0.411,
+        "btts_prob": 0.46984,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-05-23-DAL-COL",
+      "home": "COL",
+      "away": "DAL",
+      "pickedTeam": "COL",
+      "pickedSide": "home",
+      "modelProb": 0.6146016987818375,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761654",
+        "matchweek": 0,
+        "venue": "Dick's Sporting Goods Park",
+        "drawProb": 0.19735674460336924,
+        "expectedScore": "1-1",
+        "over25_prob": 0.50654,
+        "btts_prob": 0.54074,
+        "early_season": true
+      }
+    }
+  ]
+}
