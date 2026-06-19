@@ -346,6 +346,54 @@ export function getSeasonRecord(): SeasonRecord {
   };
 }
 
+export interface ConfidenceBucket {
+  label: string;     // e.g. "70-80%"
+  total: number;
+  correct: number;
+  accuracy: number;  // 0..1
+}
+
+// Confidence-bucket calibration for the morning Discord embed. MLS is 3-way
+// (home/draw/away) so we bin on PICK-SIDE probability — the max of the three
+// calibrated probabilities — which always lives in [1/3, 1.0]. Buckets are
+// half-open [lo, hi). Only buckets with at least one graded pick are returned
+// so the embed stays compact early in the season.
+export function getConfidenceBuckets(): ConfidenceBucket[] {
+  const seasonStart = getCurrentSeasonStartDate();
+  const rows = queryAll<{ home_prob: number; draw_prob: number; away_prob: number; correct: number }>(
+    `SELECT home_prob, draw_prob, away_prob, correct
+       FROM predictions
+       WHERE correct IS NOT NULL
+         AND game_date >= ?`,
+    [seasonStart]
+  );
+  const buckets: Array<{ lo: number; hi: number; label: string; total: number; correct: number }> = [
+    { lo: 0.50, hi: 0.60, label: '50-60%', total: 0, correct: 0 },
+    { lo: 0.60, hi: 0.70, label: '60-70%', total: 0, correct: 0 },
+    { lo: 0.70, hi: 0.80, label: '70-80%', total: 0, correct: 0 },
+    { lo: 0.80, hi: 0.90, label: '80-90%', total: 0, correct: 0 },
+    { lo: 0.90, hi: 1.01, label: '90%+',   total: 0, correct: 0 },
+  ];
+  for (const r of rows) {
+    const pickProb = Math.max(r.home_prob, r.draw_prob, r.away_prob);
+    for (const b of buckets) {
+      if (pickProb >= b.lo && pickProb < b.hi) {
+        b.total += 1;
+        if (r.correct === 1) b.correct += 1;
+        break;
+      }
+    }
+  }
+  return buckets
+    .filter(b => b.total > 0)
+    .map(b => ({
+      label: b.label,
+      total: b.total,
+      correct: b.correct,
+      accuracy: b.correct / b.total,
+    }));
+}
+
 export function closeDb(): void {
   if (_db) {
     persistDb();
