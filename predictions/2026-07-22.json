@@ -1,0 +1,45 @@
+{
+  "sport": "MLS",
+  "date": "2026-07-22",
+  "generatedAt": "2026-07-22T14:45:39.716Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-07-22-RBNY-PHI",
+      "home": "PHI",
+      "away": "RBNY",
+      "pickedTeam": "PHI",
+      "pickedSide": "home",
+      "modelProb": 0.7116649409835597,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761665",
+        "matchweek": 0,
+        "venue": "Subaru Park",
+        "drawProb": 0.1363967464521749,
+        "expectedScore": "1-1",
+        "over25_prob": 0.41232,
+        "btts_prob": 0.46866,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-07-22-SD-COL",
+      "home": "COL",
+      "away": "SD",
+      "pickedTeam": "COL",
+      "pickedSide": "home",
+      "modelProb": 0.737202525938989,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761675",
+        "matchweek": 0,
+        "venue": "Dick's Sporting Goods Park",
+        "drawProb": 0.1551228971459427,
+        "expectedScore": "1-1",
+        "over25_prob": 0.50506,
+        "btts_prob": 0.5344,
+        "early_season": true
+      }
+    }
+  ]
+}
