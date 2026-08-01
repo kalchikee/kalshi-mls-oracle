@@ -1,0 +1,45 @@
+{
+  "sport": "MLS",
+  "date": "2026-08-01",
+  "generatedAt": "2026-08-01T14:35:00.109Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-08-01-SD-MIN",
+      "home": "MIN",
+      "away": "SD",
+      "pickedTeam": "MIN",
+      "pickedSide": "home",
+      "modelProb": 0.6982158795313754,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761703",
+        "matchweek": 0,
+        "venue": "Allianz Field",
+        "drawProb": 0.18126564421927954,
+        "expectedScore": "1-1",
+        "over25_prob": 0.48866,
+        "btts_prob": 0.52552,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-08-01-ATX-COL",
+      "home": "COL",
+      "away": "ATX",
+      "pickedTeam": "COL",
+      "pickedSide": "home",
+      "modelProb": 0.6123632964029095,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761707",
+        "matchweek": 0,
+        "venue": "Dick's Sporting Goods Park",
+        "drawProb": 0.2008525398919491,
+        "expectedScore": "1-1",
+        "over25_prob": 0.49004,
+        "btts_prob": 0.52466,
+        "early_season": true
+      }
+    }
+  ]
+}
