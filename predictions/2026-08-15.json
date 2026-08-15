@@ -1,0 +1,83 @@
+{
+  "sport": "MLS",
+  "date": "2026-08-15",
+  "generatedAt": "2026-08-15T14:07:50.045Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-08-15-RBNY-ATL",
+      "home": "ATL",
+      "away": "RBNY",
+      "pickedTeam": "ATL",
+      "pickedSide": "home",
+      "modelProb": 0.7226433716615813,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761712",
+        "matchweek": 0,
+        "venue": "Mercedes-Benz Stadium",
+        "drawProb": 0.13200804768415128,
+        "expectedScore": "1-1",
+        "over25_prob": 0.39756,
+        "btts_prob": 0.4575,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-08-15-KC-COL",
+      "home": "COL",
+      "away": "KC",
+      "pickedTeam": "COL",
+      "pickedSide": "home",
+      "modelProb": 0.6175968347883297,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761718",
+        "matchweek": 0,
+        "venue": "Dick's Sporting Goods Park",
+        "drawProb": 0.19480430074592575,
+        "expectedScore": "1-1",
+        "over25_prob": 0.48726,
+        "btts_prob": 0.5224,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-08-15-MIN-RSL",
+      "home": "RSL",
+      "away": "MIN",
+      "pickedTeam": "RSL",
+      "pickedSide": "home",
+      "modelProb": 0.6053088936046759,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761719",
+        "matchweek": 0,
+        "venue": "America First Field",
+        "drawProb": 0.20816045715233855,
+        "expectedScore": "1-1",
+        "over25_prob": 0.48444,
+        "btts_prob": 0.52576,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-08-15-SD-LAFC",
+      "home": "LAFC",
+      "away": "SD",
+      "pickedTeam": "LAFC",
+      "pickedSide": "home",
+      "modelProb": 0.7140377348116196,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761720",
+        "matchweek": 0,
+        "venue": "BMO Stadium",
+        "drawProb": 0.15598056950014386,
+        "expectedScore": "1-1",
+        "over25_prob": 0.49816,
+        "btts_prob": 0.53702,
+        "early_season": true
+      }
+    }
+  ]
+}
