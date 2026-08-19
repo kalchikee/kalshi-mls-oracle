@@ -1,0 +1,64 @@
+{
+  "sport": "MLS",
+  "date": "2026-08-19",
+  "generatedAt": "2026-08-19T14:15:51.593Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-08-19-LAFC-COL",
+      "home": "COL",
+      "away": "LAFC",
+      "pickedTeam": "COL",
+      "pickedSide": "home",
+      "modelProb": 0.6026801164214154,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761734",
+        "matchweek": 0,
+        "venue": "Dick's Sporting Goods Park",
+        "drawProb": 0.20714485433813898,
+        "expectedScore": "1-1",
+        "over25_prob": 0.48202,
+        "btts_prob": 0.5208,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-08-19-DAL-RSL",
+      "home": "RSL",
+      "away": "DAL",
+      "pickedTeam": "RSL",
+      "pickedSide": "home",
+      "modelProb": 0.5911915057946445,
+      "confidenceTier": "strong",
+      "extra": {
+        "gameId": "761735",
+        "matchweek": 0,
+        "venue": "America First Field",
+        "drawProb": 0.213974987307238,
+        "expectedScore": "1-1",
+        "over25_prob": 0.48472,
+        "btts_prob": 0.5221,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-08-19-SD-POR",
+      "home": "POR",
+      "away": "SD",
+      "pickedTeam": "POR",
+      "pickedSide": "home",
+      "modelProb": 0.6875303258920249,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761737",
+        "matchweek": 0,
+        "venue": "Providence Park",
+        "drawProb": 0.1792544712645863,
+        "expectedScore": "1-1",
+        "over25_prob": 0.49516,
+        "btts_prob": 0.53156,
+        "early_season": true
+      }
+    }
+  ]
+}
