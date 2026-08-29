@@ -1,0 +1,26 @@
+{
+  "sport": "MLS",
+  "date": "2026-08-29",
+  "generatedAt": "2026-08-29T14:15:38.251Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-08-29-RSL-COL",
+      "home": "COL",
+      "away": "RSL",
+      "pickedTeam": "COL",
+      "pickedSide": "home",
+      "modelProb": 0.6159700289093849,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761766",
+        "matchweek": 0,
+        "venue": "Dick's Sporting Goods Park",
+        "drawProb": 0.19270008104487693,
+        "expectedScore": "1-1",
+        "over25_prob": 0.4876,
+        "btts_prob": 0.52258,
+        "early_season": true
+      }
+    }
+  ]
+}
