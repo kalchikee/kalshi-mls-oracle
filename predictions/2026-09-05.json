@@ -1,0 +1,64 @@
+{
+  "sport": "MLS",
+  "date": "2026-09-05",
+  "generatedAt": "2026-09-05T14:15:33.419Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-09-05-SD-ORL",
+      "home": "ORL",
+      "away": "SD",
+      "pickedTeam": "ORL",
+      "pickedSide": "home",
+      "modelProb": 0.6862040603815058,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761771",
+        "matchweek": 0,
+        "venue": "Inter&Co Stadium",
+        "drawProb": 0.1941528283209901,
+        "expectedScore": "1-1",
+        "over25_prob": 0.51084,
+        "btts_prob": 0.53984,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-09-05-RBNY-SEA",
+      "home": "SEA",
+      "away": "RBNY",
+      "pickedTeam": "SEA",
+      "pickedSide": "home",
+      "modelProb": 0.7365636898039707,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761780",
+        "matchweek": 0,
+        "venue": "Lumen Field",
+        "drawProb": 0.1257988345769338,
+        "expectedScore": "1-1",
+        "over25_prob": 0.42402,
+        "btts_prob": 0.48102,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-09-05-LAFC-RSL",
+      "home": "RSL",
+      "away": "LAFC",
+      "pickedTeam": "RSL",
+      "pickedSide": "home",
+      "modelProb": 0.6147313720394957,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761781",
+        "matchweek": 0,
+        "venue": "America First Field",
+        "drawProb": 0.19636688602088245,
+        "expectedScore": "1-1",
+        "over25_prob": 0.5109,
+        "btts_prob": 0.54674,
+        "early_season": true
+      }
+    }
+  ]
+}
