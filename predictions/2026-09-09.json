@@ -1,0 +1,26 @@
+{
+  "sport": "MLS",
+  "date": "2026-09-09",
+  "generatedAt": "2026-09-09T14:18:40.121Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-09-09-RBNY-LAFC",
+      "home": "LAFC",
+      "away": "RBNY",
+      "pickedTeam": "LAFC",
+      "pickedSide": "home",
+      "modelProb": 0.712914009075277,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761795",
+        "matchweek": 0,
+        "venue": "BMO Stadium",
+        "drawProb": 0.13541438953508372,
+        "expectedScore": "1-1",
+        "over25_prob": 0.41288,
+        "btts_prob": 0.46806,
+        "early_season": true
+      }
+    }
+  ]
+}
