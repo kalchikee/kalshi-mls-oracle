@@ -1,0 +1,64 @@
+{
+  "sport": "MLS",
+  "date": "2026-09-12",
+  "generatedAt": "2026-09-12T14:15:18.669Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-09-12-RBNY-CLB",
+      "home": "CLB",
+      "away": "RBNY",
+      "pickedTeam": "CLB",
+      "pickedSide": "home",
+      "modelProb": 0.7276864088879627,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761804",
+        "matchweek": 0,
+        "venue": "ScottsMiracle-Gro Field",
+        "drawProb": 0.12976508707281606,
+        "expectedScore": "1-1",
+        "over25_prob": 0.4097,
+        "btts_prob": 0.4716,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-09-12-MTL-COL",
+      "home": "COL",
+      "away": "MTL",
+      "pickedTeam": "COL",
+      "pickedSide": "home",
+      "modelProb": 0.6056374696363578,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761808",
+        "matchweek": 0,
+        "venue": "Dick's Sporting Goods Park",
+        "drawProb": 0.21766252723491814,
+        "expectedScore": "1-1",
+        "over25_prob": 0.4976,
+        "btts_prob": 0.53154,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-09-12-NYC-RSL",
+      "home": "RSL",
+      "away": "NYC",
+      "pickedTeam": "RSL",
+      "pickedSide": "home",
+      "modelProb": 0.5943937334516975,
+      "confidenceTier": "strong",
+      "extra": {
+        "gameId": "761809",
+        "matchweek": 0,
+        "venue": "America First Field",
+        "drawProb": 0.22846149343183605,
+        "expectedScore": "1-1",
+        "over25_prob": 0.49892,
+        "btts_prob": 0.53204,
+        "early_season": true
+      }
+    }
+  ]
+}
