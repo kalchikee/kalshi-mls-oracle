@@ -1,0 +1,26 @@
+{
+  "sport": "MLS",
+  "date": "2026-09-18",
+  "generatedAt": "2026-09-18T14:19:17.710Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-09-18-RBNY-NYC",
+      "home": "NYC",
+      "away": "RBNY",
+      "pickedTeam": "NYC",
+      "pickedSide": "home",
+      "modelProb": 0.72420733728731,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761815",
+        "matchweek": 0,
+        "venue": "Yankee Stadium",
+        "drawProb": 0.1312592628632387,
+        "expectedScore": "1-1",
+        "over25_prob": 0.4132,
+        "btts_prob": 0.47314,
+        "early_season": true
+      }
+    }
+  ]
+}
