@@ -1,0 +1,26 @@
+{
+  "sport": "MLS",
+  "date": "2026-09-20",
+  "generatedAt": "2026-09-20T14:16:00.286Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-09-20-SD-MIA",
+      "home": "MIA",
+      "away": "SD",
+      "pickedTeam": "MIA",
+      "pickedSide": "home",
+      "modelProb": 0.6761317176086639,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761829",
+        "matchweek": 0,
+        "venue": "Nu Stadium",
+        "drawProb": 0.20121336829955044,
+        "expectedScore": "1-1",
+        "over25_prob": 0.51214,
+        "btts_prob": 0.5439,
+        "early_season": true
+      }
+    }
+  ]
+}
