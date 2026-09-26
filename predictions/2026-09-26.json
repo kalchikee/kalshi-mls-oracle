@@ -1,0 +1,45 @@
+{
+  "sport": "MLS",
+  "date": "2026-09-26",
+  "generatedAt": "2026-09-26T14:18:33.621Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-09-26-SD-ATX",
+      "home": "ATX",
+      "away": "SD",
+      "pickedTeam": "ATX",
+      "pickedSide": "home",
+      "modelProb": 0.6982421680463606,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761839",
+        "matchweek": 0,
+        "venue": "Q2 Stadium",
+        "drawProb": 0.17548581886639344,
+        "expectedScore": "1-1",
+        "over25_prob": 0.51638,
+        "btts_prob": 0.54736,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-09-26-NE-RSL",
+      "home": "RSL",
+      "away": "NE",
+      "pickedTeam": "RSL",
+      "pickedSide": "home",
+      "modelProb": 0.5941586757392302,
+      "confidenceTier": "strong",
+      "extra": {
+        "gameId": "761840",
+        "matchweek": 0,
+        "venue": "America First Field",
+        "drawProb": 0.23033731741985033,
+        "expectedScore": "1-1",
+        "over25_prob": 0.49602,
+        "btts_prob": 0.5322,
+        "early_season": true
+      }
+    }
+  ]
+}
