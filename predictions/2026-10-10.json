@@ -1,0 +1,26 @@
+{
+  "sport": "MLS",
+  "date": "2026-10-10",
+  "generatedAt": "2026-10-10T14:19:58.687Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-10-10-SJ-COL",
+      "home": "COL",
+      "away": "SJ",
+      "pickedTeam": "COL",
+      "pickedSide": "home",
+      "modelProb": 0.617737728532454,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761857",
+        "matchweek": 0,
+        "venue": "Dick's Sporting Goods Park",
+        "drawProb": 0.20101130719004864,
+        "expectedScore": "1-1",
+        "over25_prob": 0.50378,
+        "btts_prob": 0.53988,
+        "early_season": true
+      }
+    }
+  ]
+}
