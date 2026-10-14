@@ -1,0 +1,64 @@
+{
+  "sport": "MLS",
+  "date": "2026-10-14",
+  "generatedAt": "2026-10-14T14:20:50.580Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-10-14-RBNY-DC",
+      "home": "DC",
+      "away": "RBNY",
+      "pickedTeam": "DC",
+      "pickedSide": "home",
+      "modelProb": 0.7140584632711303,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761863",
+        "matchweek": 0,
+        "venue": "Audi Field",
+        "drawProb": 0.13562919785114483,
+        "expectedScore": "1-1",
+        "over25_prob": 0.41028,
+        "btts_prob": 0.46876,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-10-14-MIN-COL",
+      "home": "COL",
+      "away": "MIN",
+      "pickedTeam": "COL",
+      "pickedSide": "home",
+      "modelProb": 0.5941725888951629,
+      "confidenceTier": "strong",
+      "extra": {
+        "gameId": "761871",
+        "matchweek": 0,
+        "venue": "Dick's Sporting Goods Park",
+        "drawProb": 0.20730719060744343,
+        "expectedScore": "1-1",
+        "over25_prob": 0.50682,
+        "btts_prob": 0.54086,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-10-14-SJ-RSL",
+      "home": "RSL",
+      "away": "SJ",
+      "pickedTeam": "RSL",
+      "pickedSide": "home",
+      "modelProb": 0.5928853352945256,
+      "confidenceTier": "strong",
+      "extra": {
+        "gameId": "761870",
+        "matchweek": 0,
+        "venue": "America First Field",
+        "drawProb": 0.20603585113331085,
+        "expectedScore": "1-1",
+        "over25_prob": 0.50766,
+        "btts_prob": 0.54508,
+        "early_season": true
+      }
+    }
+  ]
+}
