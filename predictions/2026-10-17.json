@@ -1,0 +1,26 @@
+{
+  "sport": "MLS",
+  "date": "2026-10-17",
+  "generatedAt": "2026-10-17T14:16:46.263Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-10-17-SD-LA",
+      "home": "LA",
+      "away": "SD",
+      "pickedTeam": "LA",
+      "pickedSide": "home",
+      "modelProb": 0.7184764659618816,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761887",
+        "matchweek": 0,
+        "venue": "Dignity Health Sports Park",
+        "drawProb": 0.15297301857678944,
+        "expectedScore": "1-1",
+        "over25_prob": 0.51826,
+        "btts_prob": 0.54908,
+        "early_season": true
+      }
+    }
+  ]
+}
