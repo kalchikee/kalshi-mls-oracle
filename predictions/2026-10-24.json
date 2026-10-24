@@ -1,0 +1,45 @@
+{
+  "sport": "MLS",
+  "date": "2026-10-24",
+  "generatedAt": "2026-10-24T14:16:58.526Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-10-24-VAN-COL",
+      "home": "COL",
+      "away": "VAN",
+      "pickedTeam": "COL",
+      "pickedSide": "home",
+      "modelProb": 0.6122925698533297,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761897",
+        "matchweek": 0,
+        "venue": "Dick's Sporting Goods Park",
+        "drawProb": 0.20642957920588884,
+        "expectedScore": "1-1",
+        "over25_prob": 0.50116,
+        "btts_prob": 0.5402,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-10-24-STL-RSL",
+      "home": "RSL",
+      "away": "STL",
+      "pickedTeam": "RSL",
+      "pickedSide": "home",
+      "modelProb": 0.6054946496780943,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761898",
+        "matchweek": 0,
+        "venue": "America First Field",
+        "drawProb": 0.20920806508944645,
+        "expectedScore": "1-1",
+        "over25_prob": 0.50754,
+        "btts_prob": 0.53916,
+        "early_season": true
+      }
+    }
+  ]
+}
