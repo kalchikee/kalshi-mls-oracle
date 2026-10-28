@@ -1,0 +1,45 @@
+{
+  "sport": "MLS",
+  "date": "2026-10-28",
+  "generatedAt": "2026-10-28T14:15:44.516Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-10-28-RBNY-NE",
+      "home": "NE",
+      "away": "RBNY",
+      "pickedTeam": "NE",
+      "pickedSide": "home",
+      "modelProb": 0.7220974875927163,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761909",
+        "matchweek": 0,
+        "venue": "Gillette Stadium",
+        "drawProb": 0.1320516655425667,
+        "expectedScore": "1-1",
+        "over25_prob": 0.42516,
+        "btts_prob": 0.47926,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-10-28-SD-VAN",
+      "home": "VAN",
+      "away": "SD",
+      "pickedTeam": "VAN",
+      "pickedSide": "home",
+      "modelProb": 0.6925931008357403,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761918",
+        "matchweek": 0,
+        "venue": "BC Place",
+        "drawProb": 0.17862980879861715,
+        "expectedScore": "1-1",
+        "over25_prob": 0.52704,
+        "btts_prob": 0.55404,
+        "early_season": true
+      }
+    }
+  ]
+}
