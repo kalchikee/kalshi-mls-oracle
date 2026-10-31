@@ -1,0 +1,45 @@
+{
+  "sport": "MLS",
+  "date": "2026-10-31",
+  "generatedAt": "2026-10-31T14:10:48.488Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-10-31-SD-STL",
+      "home": "STL",
+      "away": "SD",
+      "pickedTeam": "STL",
+      "pickedSide": "home",
+      "modelProb": 0.6972944766151107,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761926",
+        "matchweek": 0,
+        "venue": "Energizer Park",
+        "drawProb": 0.18100669475459588,
+        "expectedScore": "1-1",
+        "over25_prob": 0.507,
+        "btts_prob": 0.535,
+        "early_season": true
+      }
+    },
+    {
+      "gameId": "mls-2026-10-31-CHI-COL",
+      "home": "COL",
+      "away": "CHI",
+      "pickedTeam": "COL",
+      "pickedSide": "home",
+      "modelProb": 0.6177952401735223,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761923",
+        "matchweek": 0,
+        "venue": "Dick's Sporting Goods Park",
+        "drawProb": 0.20027718981093184,
+        "expectedScore": "1-1",
+        "over25_prob": 0.50114,
+        "btts_prob": 0.53734,
+        "early_season": true
+      }
+    }
+  ]
+}
