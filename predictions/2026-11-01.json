@@ -1,0 +1,26 @@
+{
+  "sport": "MLS",
+  "date": "2026-11-01",
+  "generatedAt": "2026-11-01T14:10:45.691Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-11-01-RBNY-NSH",
+      "home": "NSH",
+      "away": "RBNY",
+      "pickedTeam": "NSH",
+      "pickedSide": "home",
+      "modelProb": 0.7252868519857362,
+      "confidenceTier": "extreme",
+      "extra": {
+        "gameId": "761920",
+        "matchweek": 0,
+        "venue": "GEODIS Park",
+        "drawProb": 0.13074987581549677,
+        "expectedScore": "1-1",
+        "over25_prob": 0.4106,
+        "btts_prob": 0.4713,
+        "early_season": true
+      }
+    }
+  ]
+}
