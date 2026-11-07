@@ -1,0 +1,26 @@
+{
+  "sport": "MLS",
+  "date": "2026-11-07",
+  "generatedAt": "2026-11-07T14:11:41.859Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-11-07-LA-RSL",
+      "home": "RSL",
+      "away": "LA",
+      "pickedTeam": "RSL",
+      "pickedSide": "home",
+      "modelProb": 0.6140429122174059,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "761946",
+        "matchweek": 0,
+        "venue": "America First Field",
+        "drawProb": 0.19632318225460485,
+        "expectedScore": "1-1",
+        "over25_prob": 0.51146,
+        "btts_prob": 0.54488,
+        "early_season": true
+      }
+    }
+  ]
+}
