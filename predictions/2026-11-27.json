@@ -1,0 +1,26 @@
+{
+  "sport": "MLS",
+  "date": "2026-11-27",
+  "generatedAt": "2026-11-27T14:12:51.095Z",
+  "picks": [
+    {
+      "gameId": "mls-2026-11-27-VAN-RSL",
+      "home": "RSL",
+      "away": "VAN",
+      "pickedTeam": "RSL",
+      "pickedSide": "home",
+      "modelProb": 0.6137453255093519,
+      "confidenceTier": "high_conviction",
+      "extra": {
+        "gameId": "401933725",
+        "matchweek": 0,
+        "venue": "America First Field",
+        "drawProb": 0.2011478403004831,
+        "expectedScore": "1-1",
+        "over25_prob": 0.50264,
+        "btts_prob": 0.53886,
+        "early_season": true
+      }
+    }
+  ]
+}
